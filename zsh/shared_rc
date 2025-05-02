@@ -1,5 +1,5 @@
-#/bin/zsh
 #zmodload zsh/zprof
+[[ -n ${ZSH_VERSION-} ]] || (echo "THIS IS NOT ZSH. Install, call chsh -s $(which zsh) and run this again." && return)
 
 if [[ ! -r "$HOME/.antidote/antidote.zsh" ]]; then
   git clone --depth=1 https://github.com/mattmc3/antidote.git "$HOME/.antidote"
