@@ -1,0 +1,51 @@
+#/bin/zsh
+#zmodload zsh/zprof
+
+if [[ ! -r "$HOME/.antidote/antidote.zsh" ]]; then
+  git clone --depth=1 https://github.com/mattmc3/antidote.git "$HOME/.antidote"
+fi
+source "$HOME/.antidote/antidote.zsh"
+
+
+# bundle / update plugins
+PLIST=$HOME/.dotfiles/zsh/plugins
+PCACHE=$HOME/.zsh_plugins.zsh
+[[ ! -f $PCACHE || $PCACHE -ot $PLIST ]] && antidote bundle <"$PLIST" >"$PCACHE"
+source "$PCACHE"
+
+
+# powerlevel10k config (optional)
+export POWERLEVEL9K_CONFIG_FILE="$HOME/.dotfiles/zsh/.p10k.zsh"
+[[ -f "$HOME/.dotfiles/zsh/.p10k.zsh" ]] && source "$HOME/.dotfiles/zsh/.p10k.zsh"
+
+
+
+# Custom Key Bindings
+bindkey '^H' backward-kill-word
+bindkey '5~' kill-word
+
+# Aliases
+alias ii='xdg-open'
+alias dl-video='yt-dlp -f "bestvideo+bestaudio" --merge-output-format mp4'
+alias dl-audio='yt-dlp -f "bestaudio" --extract-audio --audio-format mp3'
+alias cdt='cd $(mktemp -d)'
+alias ggwp='ggp'
+
+
+# My custom functions
+add_nm_wifi() {
+    local ssid="$1"
+    local psk="$2"
+    local priority="$3"
+
+    nmcli -offline connection add type wifi ifname wlan0 con-name "$ssid" ssid "$ssid" | \
+    nmcli -offline connection modify wifi-sec.key-mgmt wpa-psk wifi-sec.psk "$psk" connection.autoconnect-priority "$priority" > \
+    "/etc/NetworkManager/system-connections/$ssid.nmconnection" 
+
+    chmod 600 "/etc/NetworkManager/system-connections/$ssid.nmconnection"
+}
+
+psk() {
+    wpa_passphrase "$1" "$2" | grep --color=never -oP '^\spsk=\K([0-9a-f])+'
+}
+#zprof
