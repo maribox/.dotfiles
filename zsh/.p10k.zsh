@@ -33,6 +33,7 @@
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
     os_icon                 # os identifier
+    context                 # !manually modified!
     dir                     # current directory
     vcs                     # git status
     # =========================[ Line #2 ]=========================
@@ -85,7 +86,7 @@
     gcloud                  # google cloud cli account and project (https://cloud.google.com/)
     google_app_cred         # google application credentials (https://cloud.google.com/docs/authentication/production)
     toolbox                 # toolbox name (https://github.com/containers/toolbox)
-    context                 # user@hostname
+    #context                 # user@hostname
     nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
     ranger                  # ranger shell (https://github.com/ranger/ranger)
     yazi                    # yazi shell (https://github.com/sxyazi/yazi)
@@ -918,7 +919,8 @@
 
   # Don't show context unless running with privileges or in SSH.
   # Tip: Remove the next line to always show context.
-  typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
+  #typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
+  # !manually modified!
 
   # Custom icon.
   # typeset -g POWERLEVEL9K_CONTEXT_VISUAL_IDENTIFIER_EXPANSION='⭐'
@@ -1718,3 +1720,41 @@ typeset -g POWERLEVEL9K_CONFIG_FILE=${${(%):-%x}:a}
 
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
 'builtin' 'unset' 'p10k_config_opts'
+
+
+
+# !manually modified!
+function p10k_context_hash() {
+  # for ANSI 256-Color Palette:
+  #   Standard Colors (0–15)
+  #   6×6×6 Color Cube (16–231)  <=== used here
+  #   Grayscale Ramp (232–255)
+
+  local context="$(whoami)$(hostname)"
+  local -i hash=3
+  local -i FNV_PRIME=16777619
+
+  for (( i = 1; i <= ${#context}; ++i )); do
+    local char="${context:$((i-1)):1}"
+    local -i byte=$(printf '%d' "'$char")
+    (( hash ^= byte ))
+    (( hash *= FNV_PRIME ))
+    (( hash &= 0xffffffff ))     # keep it 32‑bit
+  done
+
+  # map hash → 0‑5 range for each RGB component
+  local -i r=$(( (hash >> 16) & 0xff ))
+  local -i g=$(( (hash >> 8)  & 0xff ))
+  local -i b=$((  hash        & 0xff ))
+  (( r %= 4 + 1, g %= 4 + 1, b %= 4 + 1 ))
+
+  # avoid greyscale
+  (( r == g && g == b )) && (( r = (r + 2) % 6 ))
+
+  # final 256‑color index (16‑231)
+  print $(( 16 + 36*r + 6*g + b ))
+}
+
+typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND="$(p10k_context_hash)"
+typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND="$(p10k_context_hash)"
+typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_FOREGROUND="$(p10k_context_hash)"
