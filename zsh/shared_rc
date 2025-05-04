@@ -19,6 +19,9 @@ export POWERLEVEL9K_CONFIG_FILE="$HOME/.dotfiles/zsh/.p10k.zsh"
 [[ -f "$HOME/.dotfiles/zsh/.p10k.zsh" ]] && source "$HOME/.dotfiles/zsh/.p10k.zsh"
 
 
+# Env variables
+export EDITOR=nvim
+
 
 # Custom Key Bindings
 bindkey '^H' backward-kill-word
