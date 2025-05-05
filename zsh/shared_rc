@@ -33,7 +33,7 @@ alias dl-video='yt-dlp -f "bestvideo+bestaudio" --merge-output-format mp4'
 alias dl-audio='yt-dlp -f "bestaudio" --extract-audio --audio-format mp3'
 alias cdt='cd $(mktemp -d)'
 alias ggwp='ggp'
-
+alias cade='vim Caddyfile && docker compose up -d --build --force-recreate && docker compose logs -f'
 
 # My custom functions
 add_nm_wifi() {
