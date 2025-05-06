@@ -1,5 +1,8 @@
 romkatv/powerlevel10k
 
+mattmc3/zephyr path:plugins/completion
+Aloxaf/fzf-tab 
+
 getantidote/use-omz 
 zsh-users/zsh-autosuggestions
 zsh-users/zsh-syntax-highlighting
@@ -8,4 +11,3 @@ ohmyzsh/ohmyzsh path:plugins/git
 ohmyzsh/ohmyzsh path:lib
 ohmyzsh/ohmyzsh path:plugins/colored-man-pages
 
-#mattmc3/zephyr path:plugins/completion
