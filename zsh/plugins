@@ -10,4 +10,6 @@ zsh-users/zsh-history-substring-search
 ohmyzsh/ohmyzsh path:plugins/git
 ohmyzsh/ohmyzsh path:lib
 ohmyzsh/ohmyzsh path:plugins/colored-man-pages
+ohmyzsh/ohmyzsh path:plugins/safe-paste
+
 

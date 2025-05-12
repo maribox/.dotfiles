@@ -1,0 +1,19 @@
+[general]
+import = [
+	"~/.config/alacritty/themes/themes/ayu_mirage.toml"
+]
+
+[colors.bright]
+yellow = "#7a6331" # manually edited for vim highlighting
+
+[keyboard]
+bindings = [
+  # Ctrl+Tab → ESC [ 1 ; 5 I
+  { key = "Tab", mods = "Control",       chars = "\u001b[1;5I" },
+  # Ctrl+Shift+Tab → ESC [ 1 ; 6 I
+  { key = "Tab", mods = "Control|Shift", chars = "\u001b[1;6I" },
+]
+
+[window]
+startup_mode = "Maximized"
+

@@ -11,6 +11,7 @@ source "$HOME/.antidote/antidote.zsh"
 PLIST=$HOME/.dotfiles/zsh/plugins
 PCACHE=$HOME/.zsh_plugins.zsh
 [[ ! -f $PCACHE || $PCACHE -ot $PLIST ]] && antidote bundle <"$PLIST" >"$PCACHE"
+
 source "$PCACHE"
 
 
@@ -34,6 +35,7 @@ alias dl-audio='yt-dlp -f "bestaudio" --extract-audio --audio-format mp3'
 alias cdt='cd $(mktemp -d)'
 alias ggwp='ggp'
 alias cade='vim Caddyfile && docker compose up -d --build --force-recreate && docker compose logs -f'
+alias z='zellij'
 
 # My custom functions
 add_nm_wifi() {
@@ -51,4 +53,11 @@ add_nm_wifi() {
 psk() {
     wpa_passphrase "$1" "$2" | grep --color=never -oP '^\spsk=\K([0-9a-f])+'
 }
+
+[ -e ~/Downloads ] && cd ~/Downloads
+
+if command -v zellij > /dev/null 2>&1; then
+    #ZELLIJ_AUTO_EXIT=true
+    # eval "$(zellij setup --generate-auto-start zsh)"
+fi
 #zprof
