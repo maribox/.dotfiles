@@ -54,10 +54,6 @@ psk() {
     wpa_passphrase "$1" "$2" | grep --color=never -oP '^\spsk=\K([0-9a-f])+'
 }
 
-[ -e ~/Downloads ] && cd ~/Downloads
+[[ -z "$TERM_PROGRAM" ]] && [ -e ~/Downloads ] && cd ~/Downloads
 
-if command -v zellij > /dev/null 2>&1; then
-    #ZELLIJ_AUTO_EXIT=true
-    # eval "$(zellij setup --generate-auto-start zsh)"
-fi
 #zprof

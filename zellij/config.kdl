@@ -148,7 +148,7 @@ keybinds clear-defaults=true {
         bind "Alt l" { MoveFocusOrTab "right"; }
         bind "Alt n" { NewPane; }
         bind "Alt o" { MoveTab "right"; }
-        bind "Ctrl q" { Quit; }
+        // bind "Ctrl q" { Quit; } // (Annoying)
     }
     shared_except "locked" "move" {
         bind "Ctrl h" { SwitchToMode "move"; }
@@ -295,7 +295,7 @@ theme "lucario"
  
 // Choose the path to override cwd that zellij will use for opening new panes
 // 
-// default_cwd "/tmp"
+// default_cwd "~/Downloads/"
  
 // The name of the default layout to load on startup
 // Default: "default"
