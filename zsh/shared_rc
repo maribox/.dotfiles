@@ -54,6 +54,8 @@ psk() {
     wpa_passphrase "$1" "$2" | grep --color=never -oP '^\spsk=\K([0-9a-f])+'
 }
 
-[[ -z "$TERM_PROGRAM" ]] && [ -e ~/Downloads ] && cd ~/Downloads
+#[[ -z "$TERM_PROGRAM" ]] && [ -e ~/Downloads ] && cd ~/Downloads
+
+PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 
 #zprof
