@@ -1,3 +1,7 @@
 [submodule "alacritty/themes"]
 	path = alacritty/themes
 	url = https://github.com/alacritty/alacritty-theme
+[submodule "nix"]
+	path = nix
+	url = git@github.com:maribox/.dotfiles.nix.git
+	branch = main
